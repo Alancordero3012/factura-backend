@@ -25,7 +25,9 @@ app.post('/guardarFactura', async (req, res) => {
   try {
     await client.query('BEGIN');
 
-    await client.query(`
+    await client.query(
+      console.log("Campos recibidos:", Object.keys(req.body))
+`
       INSERT INTO facturas (id, nombre, correo, telefono, descripcion, vendedor, fecha, estado)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `, [id, nombre, correo, telefono, descripcion, vendedor, new Date(fecha), estado]);
