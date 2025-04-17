@@ -7,6 +7,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// 🚨 Tu URL de conexión a PostgreSQL
 const connectionString = 'postgresql://postgres:ppwVvlJrEfzWCCcpjmKHjiDCFEecvIFh@yamabiko.proxy.rlwy.net:41314/railway';
 
 const pool = new Pool({
@@ -25,13 +26,16 @@ app.post('/guardarFactura', async (req, res) => {
   try {
     await client.query('BEGIN');
 
-    await client.query(
-      console.log("Campos recibidos:", Object.keys(req.body))
-`
+    // ✅ Mostrar los campos recibidos correctamente
+    console.log("Campos recibidos:", Object.keys(req.body));
+
+    // Insertar la factura principal
+    await client.query(`
       INSERT INTO facturas (id, nombre, correo, telefono, descripcion, vendedor, fecha, estado)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `, [id, nombre, correo, telefono, descripcion, vendedor, new Date(fecha), estado]);
 
+    // Insertar los artículos asociados
     for (const art of articulos) {
       await client.query(`
         INSERT INTO factura_articulos (id_factura, codigo, producto, cantidad)
