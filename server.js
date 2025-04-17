@@ -8,7 +8,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 🚨 Tu URL de conexión a PostgreSQL
-const connectionString = 'postgresql://postgres:ppwVvlJrEfzWCCcpjmKHjiDCFEecvIFh@yamabiko.proxy.rlwy.net:41314/railway';
+const connectionString = 'postgresql://postgres:OhbCwpJsOGbJnXdlbjMAdYeCJyfHzUKg@maglev.proxy.rlwy.net:54197/railway';
+
 
 const pool = new Pool({
   connectionString,
